@@ -1,0 +1,35 @@
+@import 'base/reset';
+@import 'base/var';
+@import 'base/mixin';
+@import 'base/keyframe';
+@import 'base/font';
+@import 'base/global';
+@import 'components/*.scss';
+
+.field {
+  height: 100vh;
+  background: rgb(104, 199, 104);
+  display: flex;
+  justify-content: space-between;
+  padding: 0 30px;
+  position: relative;
+}
+
+.player-border-1,
+.player-border-2 {
+  width: 30px;
+  height: 200px;
+  background: #fbfcd5;
+  margin-top: 20px;
+  transition: 0.05s;
+}
+
+.ball {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  background: red;
+  border-radius: 50%;
+  left: 50%;
+  top: 50%;
+}
