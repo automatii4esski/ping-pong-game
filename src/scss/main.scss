@@ -6,30 +6,26 @@
 @import 'base/global';
 @import 'components/*.scss';
 
-.field {
-  height: 100vh;
-  background: rgb(104, 199, 104);
-  display: flex;
-  justify-content: space-between;
-  padding: 0 30px;
-  position: relative;
+.canvas {
+  display: block;
+  background: rgb(80, 1, 80);
 }
 
-.player-border-1,
-.player-border-2 {
-  width: 30px;
-  height: 200px;
-  background: #fbfcd5;
-  margin-top: 20px;
-  transition: 0.05s;
-}
+// .player-border-1,
+// .player-border-2 {
+//   width: 30px;
+//   height: 200px;
+//   background: #fbfcd5;
+//   margin-top: 20px;
+//   transition: 0.05s;
+// }
 
-.ball {
-  position: absolute;
-  width: 30px;
-  height: 30px;
-  background: red;
-  border-radius: 50%;
-  left: 50%;
-  top: 50%;
-}
+// .ball {
+//   position: absolute;
+//   width: 30px;
+//   height: 30px;
+//   background: red;
+//   border-radius: 50%;
+//   left: 50%;
+//   top: 50%;
+// }
