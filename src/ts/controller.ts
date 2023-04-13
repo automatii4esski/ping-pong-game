@@ -1,22 +1,30 @@
 import { CanvasV } from './view/canvas';
 import { PlatformV } from './view/platform';
 import { BallV } from './view/ball';
+import { View } from './view/main';
 
 import { PlatformM } from './model/platform';
 import { BallM } from './model/ball';
+import { Model } from './model/main';
 
 import * as config from './config';
 
 const canvas = new CanvasV();
 
-const leftPlatformM = new PlatformM();
+const sideGap = 50;
+
+const leftPlatformM = new PlatformM(sideGap, window.innerHeight / 2);
 const leftPlatformV = new PlatformV(
   canvas.Context,
   leftPlatformM.State,
   leftPlatformM.Size
 );
 
-const rightPlatformM = new PlatformM();
+const rightPlatformM = new PlatformM(
+  window.innerWidth - sideGap,
+  window.innerHeight / 2,
+  true
+);
 const rightPlatformV = new PlatformV(
   canvas.Context,
   rightPlatformM.State,
@@ -25,6 +33,9 @@ const rightPlatformV = new PlatformV(
 
 const ballM = new BallM();
 const ballV = new BallV(canvas.Context, ballM.State, ballM.Radius);
+
+const model = new Model(leftPlatformM, rightPlatformM);
+const view = new View(leftPlatformV, rightPlatformV);
 
 class Controller {
   private activePlatform: PlatformM;

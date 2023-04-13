@@ -1,11 +1,7 @@
 import { ICoordinates, ISize, IGetBorderPos } from '../types/interfaces';
 
 export class PlatformM {
-  private state: ICoordinates & Record<any, any> = {
-    x: 50,
-    y: window.innerHeight / 2,
-    movespeedY: 0,
-  };
+  private state: ICoordinates & Record<any, any>;
   get State() {
     return this.state;
   }
@@ -25,7 +21,13 @@ export class PlatformM {
 
   private moveStep = 5;
 
-  constructor() {
+  constructor(x: number, y: number, isRightPlatform: boolean = false) {
+    this.state = {
+      x: isRightPlatform ? x - this.Size.width : x,
+      y,
+      movespeedY: 0,
+    };
+
     this.getBorderPos = {
       top: () => this.state.y,
       bot: () => this.state.y + this.size.height,
