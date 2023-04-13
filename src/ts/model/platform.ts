@@ -37,7 +37,17 @@ export class PlatformM {
   }
 
   update() {
-    this.state.y += this.state.movespeedY;
+    const potentialY = this.state.y + this.state.movespeedY;
+    if (potentialY + this.size.height > window.innerHeight) {
+      this.state.y = window.innerHeight - this.size.height;
+      return;
+    }
+    if (potentialY < 0) {
+      this.state.y = 0;
+      return;
+    }
+
+    this.state.y = potentialY;
   }
 
   onKeyDown() {

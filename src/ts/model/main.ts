@@ -21,6 +21,7 @@ export class Model {
   switchActivePlatform() {
     const newActivePlatformIndex = this.indexActivePlatform === 0 ? 1 : 0;
     this.indexActivePlatform = newActivePlatformIndex;
+    this.activePlatform.resetDirection();
     this.activePlatform = this.platforms[newActivePlatformIndex];
   }
 }
