@@ -7,8 +7,6 @@ import { PlatformM } from './model/platform';
 import { BallM } from './model/ball';
 import { Model } from './model/main';
 
-import * as config from './config';
-
 const canvas = new CanvasV();
 
 const sideGap = 50;
@@ -38,18 +36,10 @@ const model = new Model(leftPlatformM, rightPlatformM);
 const view = new View(leftPlatformV, rightPlatformV);
 
 class Controller {
-  private activePlatform: PlatformM;
-  private activeIndex = 0;
-  private platformViews = [leftPlatformV, rightPlatformV];
-  private platformModels = [leftPlatformM, rightPlatformM];
-
   constructor() {
     requestAnimationFrame(this.gameFlow.bind(this));
     window.addEventListener('keydown', this.onKeyDownHandler.bind(this));
     window.addEventListener('keyup', this.onKeyUpHandler.bind(this));
-
-    this.activePlatform =
-      config.INIT_PLATFORM === 'left' ? leftPlatformM : rightPlatformM;
   }
 
   gameFlow(timestamp: number) {
@@ -62,11 +52,11 @@ class Controller {
     switch (e.key) {
       case 's':
       case 'ArrowDown':
-        this.activePlatform.onKeyDown();
+        model.ActivePlatform.onKeyDown();
         break;
       case 'w':
       case 'ArrowUp':
-        this.activePlatform.onKeyUp();
+        model.ActivePlatform.onKeyUp();
         break;
     }
   }
@@ -77,7 +67,7 @@ class Controller {
       case 'ArrowDown':
       case 'w':
       case 'ArrowUp':
-        this.activePlatform.resetDirection();
+        model.ActivePlatform.resetDirection();
         break;
     }
   }
@@ -85,8 +75,8 @@ class Controller {
   draw() {
     canvas.clear();
 
-    this.platformViews.forEach((view, i) => {
-      let { x, y } = this.platformModels[i].State;
+    view.Platforms.forEach((view, i) => {
+      let { x, y } = model.Platforms[i].State;
       view.draw(x, y);
     });
 
@@ -94,8 +84,8 @@ class Controller {
   }
 
   update() {
-    const border = this.activePlatform.BorderPos;
-    this.activePlatform.update();
+    const border = model.ActivePlatform.BorderPos;
+    model.ActivePlatform.update();
     ballM.update(
       border.left(),
       border.right(),
@@ -106,10 +96,7 @@ class Controller {
   }
 
   playerCollisionHandler() {
-    this.activePlatform =
-      this.platformModels[
-        this.activeIndex === 0 ? (this.activeIndex = 1) : (this.activeIndex = 0)
-      ];
+    model.switchActivePlatform();
   }
 }
 const a = new Controller();

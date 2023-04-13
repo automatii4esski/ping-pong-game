@@ -2,8 +2,16 @@ import { PlatformM } from './platform';
 
 export class Model {
   private activePlatform: PlatformM;
-  private indexActivePlatform = 0;
+  get ActivePlatform() {
+    return this.activePlatform;
+  }
+
   private platforms: [PlatformM, PlatformM];
+  get Platforms() {
+    return this.platforms;
+  }
+
+  private indexActivePlatform = 0;
 
   constructor(initPlatform: PlatformM, secondPlatform: PlatformM) {
     this.activePlatform = initPlatform;

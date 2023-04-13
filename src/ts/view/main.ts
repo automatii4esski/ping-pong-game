@@ -2,8 +2,16 @@ import { PlatformV } from './platform';
 
 export class View {
   private activePlatform: PlatformV;
-  private indexActivePlatform = 0;
+  get ActivePlatform() {
+    return this.activePlatform;
+  }
+
   private platforms: [PlatformV, PlatformV];
+  get Platforms() {
+    return this.platforms;
+  }
+
+  private indexActivePlatform = 0;
 
   constructor(initPlatform: PlatformV, secondPlatform: PlatformV) {
     this.activePlatform = initPlatform;
