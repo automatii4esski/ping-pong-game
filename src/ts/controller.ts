@@ -1,6 +1,7 @@
 import { CanvasV } from './view/canvas';
 import { PlatformV } from './view/platform';
 import { BallV } from './view/ball';
+import { Score } from './view/score';
 import { View } from './view/main';
 
 import { PlatformM } from './model/platform';
@@ -34,6 +35,9 @@ const ballV = new BallV(canvas.Context, ballM.State, ballM.Radius);
 
 const model = new Model(leftPlatformM, rightPlatformM);
 const view = new View(leftPlatformV, rightPlatformV);
+
+const leftScoreV = new Score(canvas.Context, model.Scores[0].Coordinates);
+const rightScoreV = new Score(canvas.Context, model.Scores[1].Coordinates);
 
 class Controller {
   constructor() {
@@ -79,6 +83,9 @@ class Controller {
       let { x, y } = model.Platforms[i].State;
       view.draw(x, y);
     });
+
+    leftScoreV.draw(model.Scores[0].Score);
+    rightScoreV.draw(model.Scores[1].Score);
 
     ballV.draw(ballM.State.x, ballM.State.y);
   }

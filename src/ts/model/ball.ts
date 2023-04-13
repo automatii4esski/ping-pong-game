@@ -16,7 +16,7 @@ export class BallM {
   get Radius() {
     return this.radius;
   }
-  private moveSpeed = 2;
+  private moveSpeed = 4;
   private checkCollision: (...args: any) => any;
 
   constructor() {
@@ -28,7 +28,7 @@ export class BallM {
     };
 
     this.checkCollision =
-      this.state.directionY === -2
+      this.state.directionY === -this.moveSpeed
         ? this.checkCollisionOnTopMove
         : this.checkCollisionOnBottomMove;
 
