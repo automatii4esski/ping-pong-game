@@ -68,7 +68,11 @@ export class BallM {
       this.borderPos.bot() >= elTop &&
       this.borderPos.top() <= elBot
     ) {
-      this.state.directionX *= -1;
+      if (elTop >= this.borderPos.bot()) {
+        this.state.directionY *= -1;
+      } else {
+        this.state.directionX *= -1;
+      }
       onPlayerCollision();
     }
   }
@@ -87,9 +91,13 @@ export class BallM {
       this.borderPos.right() >= elLeft &&
       this.borderPos.left() <= elRight &&
       this.borderPos.bot() >= elTop &&
-      -this.borderPos.top() <= elBot
+      this.borderPos.top() <= elBot
     ) {
-      this.state.directionX *= -1;
+      if (elBot <= this.borderPos.bot()) {
+        this.state.directionY *= -1;
+      } else {
+        this.state.directionX *= -1;
+      }
       onPlayerCollision();
     }
   }

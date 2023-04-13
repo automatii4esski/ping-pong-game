@@ -1,11 +1,5 @@
-import { CanvasV } from './view/canvas';
-import { PlatformV } from './view/platform';
-import { BallV } from './view/ball';
-import { Score } from './view/score';
 import { View } from './view/main';
 
-import { PlatformM } from './model/platform';
-import { BallM } from './model/ball';
 import { Model } from './model/main';
 
 const model = new Model();
