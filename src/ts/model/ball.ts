@@ -2,7 +2,7 @@ import { IBallConfig, ICoordinates, IGetBorderPos } from '../types/interfaces';
 import { INIT_PLATFORM } from '../config';
 
 export class BallM {
-  public state: ICoordinates & Record<any, any>;
+  private state: ICoordinates & Record<any, any>;
   get State() {
     return this.state;
   }
