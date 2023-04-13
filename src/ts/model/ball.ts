@@ -1,29 +1,32 @@
-import { IBallConfig } from '../types/interfaces';
-import { platformName } from '../types/types';
+import { IBallConfig, ICoordinates, IGetBorderPos } from '../types/interfaces';
+import { INIT_PLATFORM } from '../config';
 
 export class BallM {
-  public state;
+  public state: ICoordinates & Record<any, any>;
   get State() {
     return this.state;
   }
 
-  private borderPos;
-  private radius: number;
+  private borderPos: IGetBorderPos;
+  get BorderPos() {
+    return this.borderPos;
+  }
+
+  private radius = 25;
+  get Radius() {
+    return this.radius;
+  }
+  private moveSpeed = 2;
   private checkCollision: (...args: any) => any;
 
-  constructor(
-    { INIT_POS_X, INIT_POS_Y, RADIUS }: IBallConfig,
-    initialPlayer: platformName
-  ) {
+  constructor() {
     this.state = {
-      x: INIT_POS_X,
-      y: INIT_POS_Y,
-      directionX: initialPlayer === 'left' ? -2 : 2,
-      directionY: -2,
+      x: window.innerWidth / 2,
+      y: window.innerHeight / 2,
+      directionX: INIT_PLATFORM === 'left' ? -this.moveSpeed : this.moveSpeed,
+      directionY: Math.random() > 0.5 ? this.moveSpeed : -this.moveSpeed,
     };
-    // Math.random() > 0.5 ? 2 : -2
 
-    this.radius = RADIUS;
     this.checkCollision =
       this.state.directionY === -2
         ? this.checkCollisionOnTopMove
@@ -35,8 +38,6 @@ export class BallM {
       left: () => this.state.x - this.radius,
       right: () => this.state.x + this.radius,
     };
-
-    console.log(this.checkCollision, this.state);
   }
 
   update(
@@ -86,7 +87,7 @@ export class BallM {
       this.borderPos.right() >= elLeft &&
       this.borderPos.left() <= elRight &&
       this.borderPos.bot() >= elTop &&
-      this.borderPos.top() <= elBot
+      -this.borderPos.top() <= elBot
     ) {
       this.state.directionX *= -1;
       onPlayerCollision();

@@ -1,22 +1,24 @@
-import { IPlayerConfig } from '../types/interfaces';
+import { ICoordinates, ISize } from '../types/interfaces';
 
 export class PlatformV {
-  private width: number;
-  private height: number;
-  private color: string;
+  private size: ISize;
+  private color = 'white';
   constructor(
     private canvasContext: CanvasRenderingContext2D,
-    { INIT_POS_X, INIT_POS_Y, WIDTH, HEIGHT, COLOR }: IPlayerConfig
+    { x, y }: ICoordinates,
+    { width, height }: ISize
   ) {
-    this.canvasContext.fillStyle = COLOR;
-    this.canvasContext.fillRect(INIT_POS_X, INIT_POS_Y, WIDTH, HEIGHT);
-    this.width = WIDTH;
-    this.height = HEIGHT;
-    this.color = COLOR;
+    this.canvasContext.fillStyle = this.color;
+    this.canvasContext.fillRect(x, y, width, height);
+
+    this.size = {
+      width,
+      height,
+    };
   }
 
   draw(x: number, y: number) {
     this.canvasContext.fillStyle = this.color;
-    this.canvasContext.fillRect(x, y, this.width, this.height);
+    this.canvasContext.fillRect(x, y, this.size.width, this.size.height);
   }
 }

@@ -1,51 +1,52 @@
-import { IPlayerConfig } from '../types/interfaces';
+import { ICoordinates, ISize, IGetBorderPos } from '../types/interfaces';
 
 export class PlatformM {
-  private state;
+  private state: ICoordinates & Record<any, any> = {
+    x: 50,
+    y: window.innerHeight / 2,
+    movespeedY: 0,
+  };
   get State() {
     return this.state;
   }
 
-  private moveStep: number;
-  private borderPos;
-  get BorderPos() {
-    return this.borderPos;
+  private size: ISize = {
+    width: 30,
+    height: 150,
+  };
+  get Size() {
+    return this.size;
   }
 
-  constructor({
-    INIT_POS_X,
-    INIT_POS_Y,
-    MOVE_STEP,
-    WIDTH,
-    HEIGHT,
-  }: IPlayerConfig) {
-    this.state = {
-      x: INIT_POS_X,
-      y: INIT_POS_Y,
-      directionY: 0,
-    };
-    this.moveStep = MOVE_STEP;
-    this.borderPos = {
+  private getBorderPos: IGetBorderPos;
+  get BorderPos() {
+    return this.getBorderPos;
+  }
+
+  private moveStep = 5;
+
+  constructor() {
+    this.getBorderPos = {
       top: () => this.state.y,
-      bot: () => this.state.y + HEIGHT,
+      bot: () => this.state.y + this.size.height,
       left: () => this.state.x,
-      right: () => this.state.x + WIDTH,
+      right: () => this.state.x + this.size.width,
     };
   }
 
   update() {
-    this.state.y += this.state.directionY;
+    this.state.y += this.state.movespeedY;
   }
 
   onKeyDown() {
-    this.state.directionY = this.moveStep;
+    this.state.movespeedY = this.moveStep;
   }
 
   onKeyUp() {
-    this.state.directionY = -this.moveStep;
+    this.state.movespeedY = -this.moveStep;
   }
 
   resetDirection() {
-    this.state.directionY = 0;
+    this.state.movespeedY = 0;
   }
 }

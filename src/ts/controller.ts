@@ -9,14 +9,22 @@ import * as config from './config';
 
 const canvas = new CanvasV();
 
-const leftPlatformV = new PlatformV(canvas.Context, config.LEFT_PLAYER);
-const leftPlatformM = new PlatformM(config.LEFT_PLAYER);
+const leftPlatformM = new PlatformM();
+const leftPlatformV = new PlatformV(
+  canvas.Context,
+  leftPlatformM.State,
+  leftPlatformM.Size
+);
 
-const rightPlatformV = new PlatformV(canvas.Context, config.RIGHT_PLAYER);
-const rightPlatformM = new PlatformM(config.RIGHT_PLAYER);
+const rightPlatformM = new PlatformM();
+const rightPlatformV = new PlatformV(
+  canvas.Context,
+  rightPlatformM.State,
+  rightPlatformM.Size
+);
 
-const ballV = new BallV(canvas.Context, config.BALL);
-const ballM = new BallM(config.BALL, config.INIT_PLATFORM);
+const ballM = new BallM();
+const ballV = new BallV(canvas.Context, ballM.State, ballM.Radius);
 
 class Controller {
   private activePlatform: PlatformM;
